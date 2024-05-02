@@ -4,8 +4,23 @@ import time
 import threading
 
 
+def work(tempo):
+    messagebox.showinfo("Pomodoro", "Trabalhando...")
+    time.sleep(tempo * 60)
+
+
+def rest_timer(tempo):
+    messagebox.showinfo("Pomodoro", "Hora do descanso")
+    time.sleep(tempo * 60)
+
+
 class PomodoroApp:
     def __init__(self, root):
+        self.start_button = None
+        self.stop_button = None
+        self.entry_ciclos = None
+        self.entry_tempo_descanso = None
+        self.entry_tempo_trabalho = None
         self.root = root
         self.root.title("Pomodoro Time")
 
@@ -53,19 +68,11 @@ class PomodoroApp:
 
     def run_timer(self, tempo_trabalho, tempo_descanso, ciclos):
         for ciclo in range(ciclos):
-            self.work(tempo_trabalho)
+            work(tempo_trabalho)
             if ciclo < ciclos - 1:
-                self.rest_timer(tempo_descanso)
+                rest_timer(tempo_descanso)
 
         self.complete_pomodoro()
-
-    def work(self, tempo):
-        messagebox.showinfo("Pomodoro", "Trabalhando...")
-        time.sleep(tempo * 60)
-
-    def rest_timer(self, tempo):
-        messagebox.showinfo("Pomodoro", "Hora do descanso")
-        time.sleep(tempo * 60)
 
     def complete_pomodoro(self):
         messagebox.showinfo("Pomodoro", "Pomodoro completo!")
